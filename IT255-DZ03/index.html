@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Add Edit Remove HTML tabela Row</title>
+        <meta charset="windows-1252">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <style>
+            
+            .container{overflow: hidden}
+            .tab{float: left;}
+            .tab-2{margin-left: 50px}
+            .tab-2 input{display: block;margin-bottom: 10px}
+            tr{transition:all .25s ease-in-out}
+            tr:hover{background-color:#EEE;cursor: pointer}
+            
+        </style>
+        
+    </head>
+    <body>
+        
+        <div class="container">
+            <div class="tab tab-1">
+                <table id="tabela" border="1">
+                    <tr>
+                        <th>Ime</th>
+                        <th>Prezime</th>
+                        <th>Indeks</th>
+                    </tr>
+                    <tr>
+                        <td>Luka</td>
+                        <td>Djoric</td>
+                        <td>3363</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="tab tab-2">
+                Ime :<input type="text" name="ime" id="ime">
+                Prezime :<input type="text" name="prezime" id="prezime">
+                Indeks :<input type="number" name="indeks" id="indeks">
+                
+                <button onclick="dodavanjeReda();">Dodaj</button>
+                <button onclick="izmenaIzabranogReda();">Izmeni</button>
+                <button onclick="obrisiIzabraniRed();">Obrisi</button>
+            </div>
+        </div>
+        
+        <script>
+            
+            var redIndeks,
+                tabela = document.getElementById("tabela");
+            
+            function proveraPraznog()
+            {
+                var prazno = false,
+                    ime = document.getElementById("ime").value,
+                    prezime = document.getElementById("prezime").value,
+                    indeks = document.getElementById("indeks").value;
+            
+                if(ime === ""){
+                    alert("First Name Connot Be Empty");
+                    prazno = true;
+                }
+                else if(prezime === ""){
+                    alert("Last Name Connot Be Empty");
+                    prazno = true;
+                }
+                else if(indeks === ""){
+                    alert("indeks Connot Be Empty");
+                    prazno = true;
+                }
+                return prazno;
+            }
+            
+            function dodavanjeReda()
+            {
+                if(!proveraPraznog()){
+                var newRow = tabela.insertRow(tabela.length),
+                    cell1 = newRow.insertCell(0),
+                    cell2 = newRow.insertCell(1),
+                    cell3 = newRow.insertCell(2),
+                    ime = document.getElementById("ime").value,
+                    prezime = document.getElementById("prezime").value,
+                    indeks = document.getElementById("indeks").value;
+            
+                cell1.innerHTML = ime;
+                cell2.innerHTML = prezime;
+                cell3.innerHTML = indeks;
+                izabraniRed();
+            }
+            }
+            
+            function izabraniRed()
+            {
+                
+                for(var i = 1; i < tabela.rows.length; i++)
+                {
+                    tabela.rows[i].onclick = function()
+                    {
+                      redIndeks = this.rowIndex;
+                      document.getElementById("ime").value = this.cells[0].innerHTML;
+                      document.getElementById("prezime").value = this.cells[1].innerHTML;
+                      document.getElementById("indeks").value = this.cells[2].innerHTML;
+                    };
+                }
+            }
+            izabraniRed();
+            
+            function izmenaIzabranogReda()
+            {
+                var ime = document.getElementById("ime").value,
+                    prezime = document.getElementById("prezime").value,
+                    indeks = document.getElementById("indeks").value;
+               if(!proveraPraznog()){
+                tabela.rows[redIndeks].cells[0].innerHTML = ime;
+                tabela.rows[redIndeks].cells[1].innerHTML = prezime;
+                tabela.rows[redIndeks].cells[2].innerHTML = indeks;
+              }
+            }
+            
+            function obrisiIzabraniRed()
+            {
+                tabela.deleteRow(redIndeks);
+                document.getElementById("ime").value = "";
+                document.getElementById("prezime").value = "";
+                document.getElementById("indeks").value = "";
+            }
+        </script>
+        
+    </body>
+</html>
