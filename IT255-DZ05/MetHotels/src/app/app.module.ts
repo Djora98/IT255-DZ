@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { RoomComponent } from './room/room.component';
 import { FilterPipePipe } from './room/filter-pipe.pipe';
 import { AddRoomComponent } from './add-room/add-room.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { AddRoomComponent } from './add-room/add-room.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

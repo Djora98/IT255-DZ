@@ -1,5 +1,6 @@
 import { Component, Output, Input } from '@angular/core';
 import { RoomModel } from './room/room.model';
+import { FormGroup, FormControl, Validators, MinLengthValidator } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -49,6 +50,9 @@ export class AppComponent {
     this.shuffle(this.sobe);
   }
 
-
+  form = new FormGroup({
+    nazivSobeForma: new FormControl('', [Validators.required, Validators.minLength(6)]),
+    cenaSobeForma: new FormControl('', Validators.required)
+  })
 
 }

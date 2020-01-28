@@ -10,17 +10,26 @@
         <strong>IT255-DZ05-Luka-Djoric-3363</strong>
       </h5>
       <div class="card-body px-lg-5 pt-0">
-        <form class="text-center" style="color: #757575;" action="#!">
+        <form class="text-center" style="color: #757575;" action="#!" [formGroup]="form">
           <div class="md-form">
             <label for="type" style="color: #000000;" class="labele">Naziv Sobe:</label>
-            <input class="form-control" style="text-align:center" #newtip placeholder="naziv" name="type">
+            <input required id="nazivsobe" class="form-control" style="text-align:center" #newtip placeholder="naziv"
+              name="type" formControlName="nazivSobeForma" [ngClass]="{'is-invalid': form.get('nazivSobeForma').touched && form.get('nazivSobeForma').invalid}">
+            <div *ngIf="form.get('nazivSobeForma').touched && form.get('nazivSobeForma').invalid" class="invalid-feedback">
+              <div *ngIf="form.get('nazivSobeForma').errors.required">Naziv je obavezan!</div>
+              <div *ngIf="form.get('nazivSobeForma').errors.minlength">Naziv mora imati najmanje 6 karaktera!</div>
+            </div>
           </div>
           <div class="md-form">
             <label for="price" style="color: #000000;" class="labele">Cena Sobe:</label>
-            <input type="number" class="form-control" style="text-align:center" #newcena placeholder="cena" name="cena">
+            <input required id="cenasobe" type="number" class="form-control" style="text-align:center" #newcena
+              placeholder="cena" name="cena" formControlName="cenaSobeForma" [ngClass]="{'is-invalid': form.get('cenaSobeForma').touched && form.get('cenaSobeForma').invalid}">
+            <div class="invalid-feedback">
+              <div>Cena je obavezna!</div>
+            </div>
           </div>
           <button type="submit" class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0"
-            (click)="addRoom(newtip,newcena)">UNESI</button>
+            (click)="addRoom(newtip,newcena)" [disabled]="!form.valid">UNESI</button>
           <button type="submit" class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0"
             (click)="random()">PROMENA REDOSLEDA</button>
         </form>
@@ -30,7 +39,8 @@
             <input [(ngModel)]="price" class="form-control" placeholder="CENA" />
           </div>
           <div class="container mt-5 mb-5" *ngFor="let soba of sobe | mypipe : price; index as i;">
-            <room class="container mt-5 mb-5" (roomToDelete)="removeRoom($event)" (updateRoom)="updateRoom($event)" [soba]="soba"></room>
+            <room class="container mt-5 mb-5" (roomToDelete)="removeRoom($event)" (updateRoom)="updateRoom($event)"
+              [soba]="soba"></room>
           </div>
         </div>
       </div>
