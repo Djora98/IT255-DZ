@@ -27,4 +27,9 @@ export class RoomComponent implements OnInit {
 
   ngOnInit() {
   }
+
+  public getPrice(cena, brojnoci): number{
+    return ((cena*brojnoci));
+     
+  }
 }

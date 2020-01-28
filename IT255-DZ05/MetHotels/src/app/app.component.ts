@@ -1,6 +1,7 @@
 import { Component, Output, Input } from '@angular/core';
 import { RoomModel } from './room/room.model';
 import { FormGroup, FormControl, Validators, MinLengthValidator } from '@angular/forms';
+import { RoomServiceService } from './service/room-service.service';
 
 @Component({
   selector: 'app-root',
@@ -11,13 +12,13 @@ export class AppComponent {
 
   @Input() sobe: RoomModel[];
 
-  constructor() {
+  constructor(private _RoomService: RoomServiceService) {
     this.sobe = [];
   }
 
-  addRoom(tip: HTMLInputElement, cena: HTMLInputElement): boolean {
-    console.log(`Dodavanje sobe, naziv: ${tip.value}, cena: ${cena.value}`);
-    this.sobe.push(new RoomModel(tip.value, cena.valueAsNumber));
+  addRoom(tip: HTMLInputElement, cena: HTMLInputElement, brojnoci: HTMLInputElement): boolean {
+    console.log(`Dodavanje sobe, naziv: ${tip.value}, cena: ${cena.value}, broj nocenja: ${brojnoci.value}`);
+    this.sobe.push(new RoomModel(tip.value, cena.valueAsNumber, brojnoci.valueAsNumber));
     return false;
   }
 
@@ -52,7 +53,12 @@ export class AppComponent {
 
   form = new FormGroup({
     nazivSobeForma: new FormControl('', [Validators.required, Validators.minLength(6)]),
-    cenaSobeForma: new FormControl('', Validators.required)
+    cenaSobeForma: new FormControl('', Validators.required),
+    brojnociSobeForma: new FormControl('', Validators.required)
   })
 
+  public getPrice(numberOfNights: number, cena, brojsoba){
+    numberOfNights = ((cena * brojsoba));
+    return numberOfNights;
+  }
 }

@@ -31,8 +31,15 @@ export class AddRoomComponent implements OnInit {
   public submitForm(){
     let tip = this.roomForm.get('tip').value;
     let cena = this.roomForm.get('cena').value;
-    let video = new RoomModel(tip, cena);
+    let brojsoba = this.roomForm.get('brojsoba').value;
+    let video = new RoomModel(tip, cena, brojsoba);
     this.roomToAdd.emit(video);
   }
+
+  public getPrice(numberOfNights: number, cena, brojsoba){
+    numberOfNights = ((cena * brojsoba));
+    return numberOfNights;
+  }
+
 
 }

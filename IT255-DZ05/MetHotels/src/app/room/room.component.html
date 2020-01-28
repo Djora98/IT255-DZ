@@ -1,10 +1,12 @@
 <div class="big-box">
-    <div>
-         <h4>Soba: {{soba.tip}}</h4>
-         <p>Cena: {{soba.cena}}€</p>
-         <div>
-              <a href="#" (click)="changeContent()" class="btn btn-primary">IZMENI</a>
-              <a href="#" (click)="deleteRoom()" class="btn btn-danger">OBRISI</a>
-         </div>
-    </div>
+     <div>
+          <h4>Soba: {{soba.tip}}</h4>
+          <p>Cena: {{soba.cena}}€</p>
+          <p>Nocenja: {{soba.brojnoci}} dan(a)</p>
+          <p>Ukupna Cena: {{getPrice(soba.cena, soba.brojnoci)}}€</p>
+          <div>
+               <a href="#" (click)="changeContent()" class="btn btn-primary">IZMENI</a>
+               <a href="#" (click)="deleteRoom()" class="btn btn-danger">OBRISI</a>
+          </div>
+     </div>
 </div>
