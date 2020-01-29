@@ -1,0 +1,47 @@
+<form [formGroup]="postForm" class="container mt-5 pt-5" (ngSubmit)="submitForm()">
+    <div class="form-group">
+      <label for="title">NASLOV</label>
+      <input class="form-control" formControlName="title" type="text" name="title">
+    </div>
+  
+    <div class="form-group">
+        <label for="body">TEKST</label>
+        <input class="form-control" formControlName="body" type="text" name="body">
+    </div>
+    
+    <div class="form-group">
+        <label for="userId">KORID</label>
+        <input class="form-control" formControlName="userId" type="number" name="userId">
+    </div>
+    <div class="col button-holder d-flex justify-content-center align-items-center mt-4">
+      <button type="submit" name="submit" class="btn btn-success">DODAJ</button>
+    </div>
+  </form>
+  
+  <div class="container mt-5 pt-5">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">KORID</th>
+          <th scope="col">NASLOV</th>
+          <th scope="col">TEKST</th>
+          <th scope="col">OBRISI</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let post of posts; index as i;">
+            <th scope="row">{{post.id}}</th>
+            <th>{{post.userId}}</th>
+            <td>{{post.title}}</td>
+          <td>{{post.body}}</td>
+          <td>
+            <a  [routerLink]="['/articles', post.id]" class="btn btn-primary">DETALJNIJE</a>
+          </td>
+          <td>
+              <button (click)="deletePost(post.id)" type="button" class="btn btn-danger">OBRISI</button>
+            </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
